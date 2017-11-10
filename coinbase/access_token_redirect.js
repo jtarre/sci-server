@@ -2,7 +2,7 @@ var axios = require('axios');
 
 var access_token_redirect = function access_token_redirect(app) {
     app.get(`/coinbase/oauth/access_token_redirect`, function(request, response) {
-        //todo: try catch?
+        //todo: improve error catching
         if(request.access_token) 
             COINBASE_ACCESS_TOKEN = request.access_token;
         else 
