@@ -98,7 +98,8 @@ require('./coinbase/buy')(app);
 
 console.log('Hello!');
 console.log(moment());
-var port = APP_PORT || 3000
+console.log('Is heroku port set?', process.env.PORT);
+var port = process.env.PORT || APP_PORT || 3000
 var server = app.listen(port, function() {
   console.log('spare-coin-investing server listening on port ' + port);
 });
