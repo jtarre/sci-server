@@ -14,7 +14,8 @@ var auth_redirect = function auth_redirect(app) {
             code: COINBASE_CODE,
             client_id: process.env.COINBASE_CLIENT_ID,
             client_secret: process.env.COINBASE_CLIENT_SECRET,
-            redirect_uri: process.env.COINBASE_AUTH_REDIRECT
+            redirect_uri: 
+                `${process.env.SCI_SERVER_URL}/${process.env.COINBASE_AUTH_REDIRECT}`
         };
         axios.post('https://api.coinbase.com/oauth/token', body)
         .then(handleResponse)
