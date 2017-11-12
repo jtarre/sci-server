@@ -6,7 +6,9 @@ var auth_redirect = function auth_redirect(app) {
         // todo: post request for access token
         // todo: get access token and refresh token
         // todo: put scope in appropriate place. 
+        var hostname = request.hostname;
         COINBASE_CODE = request.query.code;
+        
         var body = { 
             grant_type: 'authorization_code', 
             code: COINBASE_CODE,
@@ -17,10 +19,7 @@ var auth_redirect = function auth_redirect(app) {
         axios.post('https://api.coinbase.com/oauth/token', body)
         .then(handleResponse)
         .catch(handleError);
-        response.redirect('https://spare-coin-investing-jtarre.c9users.io');
-        
-        
-        
+        response.redirect(hostname);
     })
         
     function handleResponse(response) {
