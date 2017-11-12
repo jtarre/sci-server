@@ -1,4 +1,5 @@
 var axios = require('axios');
+var config = require('../config');
 
 var auth_redirect = function auth_redirect(app) {
     app.get(`/coinbase/oauth/auth_redirect`, function(request, response) {
@@ -16,12 +17,12 @@ var auth_redirect = function auth_redirect(app) {
             client_id: process.env.COINBASE_CLIENT_ID,
             client_secret: process.env.COINBASE_CLIENT_SECRET,
             redirect_uri: 
-                `${process.env.SCI_SERVER_URL}/${process.env.COINBASE_AUTH_REDIRECT}`
+                `${config.server_url}/${process.env.COINBASE_AUTH_REDIRECT}`
         };
         axios.post('https://api.coinbase.com/oauth/token', body)
         .then(handleResponse)
         .catch(handleError);
-        response.redirect(hostname);
+        response.redirect(config.client_url);
     })
         
     function handleResponse(response) {

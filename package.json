@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "local": "nodemon index.js",
     "start": "node index.js"
   },
   "repository": {
@@ -30,5 +31,8 @@
     "express": "^4.16.2",
     "moment": "^2.19.1",
     "plaid": "^2.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.12.1"
   }
 }
