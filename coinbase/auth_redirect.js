@@ -7,6 +7,7 @@ var auth_redirect = function auth_redirect(app) {
         // todo: get access token and refresh token
         // todo: put scope in appropriate place. 
         var hostname = request.hostname;
+        console.log("--- HOSTNAME ---\n", hostname);
         COINBASE_CODE = request.query.code;
         
         var body = { 
