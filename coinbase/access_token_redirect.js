@@ -15,7 +15,7 @@ var access_token_redirect = function access_token_redirect(app) {
         
         response.json({ 
             response: 'completed', 
-            access_token: coinbase_access_token
+            access_token: coinbase_access_token,
             refresh_token: coinbase_access_token
         });
     })
