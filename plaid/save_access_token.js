@@ -9,10 +9,12 @@ var save_access_token = function save_access_token(app) {
     
     app.post('/save_access_token', function(request, response, next) {
         var public_token = request.body.public_token;
+        console.log('--- Request Body ---\n', request.body);
         PLAID_CLIENT.exchangePublicToken(public_token, function(error, tokenResponse) {
             if (error != null) {
                 var msg = 'Could not exchange public_token!';
                 console.log(msg + '\n' + error);
+                console.log('--- Plaid Token Error ---\n', error);
                 return response.json({
                     error: msg
                 });

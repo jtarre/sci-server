@@ -2,6 +2,12 @@ var moment = require('moment');
 var calculate_loose_change = require('../helpers/calculate_loose_change');
 
 var get_loose_change = function get_loose_change(app) {
+    app.use(function(req, res, next) { 
+        res.header("Access-Control-Allow-Origin", "*");
+        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+        next();
+    });
+    
     app.post('/get_loose_change', function(request, response, next) {
         var bankAccessToken = request.body.bank_access_token;
         var bankAccountId = request.body.bank_account_id;
