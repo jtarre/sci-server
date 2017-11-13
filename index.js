@@ -24,11 +24,6 @@ var PLAID_SECRET = process.env.PLAID_SECRET;
 var PLAID_PUBLIC_KEY = process.env.PLAID_PUBLIC_KEY;
 var PLAID_ENV = process.env.PLAID_ENV;
 
-// We store the access_token in memory - in production, store it in a secure
-// persistent data store
-PLAID_PUBLIC_TOKEN = null;
-PLAID_ITEM_ID = null;
-
 // Initialize the Plaid client
 PLAID_CLIENT = new plaid.Client(
     process.env.PLAID_CLIENT_ID,
@@ -38,10 +33,6 @@ PLAID_CLIENT = new plaid.Client(
 );
 
 // Coinbase fields needed to create oauth2 client
-COINBASE_CODE = null;
-COINBASE_ACCESS_TOKEN = null;
-COINBASE_REFRESH_TOKEN = null;
-
 var app = express();
 // app.use(express.static('public'));
 // app.set('view engine', 'ejs');

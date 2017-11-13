@@ -9,11 +9,11 @@ var auth_redirect = function auth_redirect(app) {
         // todo: put scope in appropriate place. 
         var hostname = request.hostname;
         console.log("--- HOSTNAME ---\n", hostname);
-        COINBASE_CODE = request.query.code;
+        var coinbase_code = request.query.code;
         
         var body = { 
             grant_type: 'authorization_code', 
-            code: COINBASE_CODE,
+            code: coinbase_code,
             client_id: process.env.COINBASE_CLIENT_ID,
             client_secret: process.env.COINBASE_CLIENT_SECRET,
             redirect_uri: 
@@ -30,21 +30,21 @@ var auth_redirect = function auth_redirect(app) {
         function handleResponse(server_response, response) {
             console.log('--- RESPONSE HANDLING ---\n', response, server_response);
             if(response.data.access_token) 
-                COINBASE_ACCESS_TOKEN = response.data.access_token;
+                var coinbase_access_token = response.data.access_token;
             else 
                 console.error('unable to retrieve access token...');
             
             if(response.data.refresh_token) 
-                COINBASE_REFRESH_TOKEN = response.data.refresh_token;
+                var coinbase_refresh_token = response.data.refresh_token;
             else 
                 console.error('unable to retrieve refresh token...');
             
             console.log({
-                access_token: COINBASE_ACCESS_TOKEN, 
-                refresh_token: COINBASE_REFRESH_TOKEN
+                access_token: coinbase_access_token, 
+                refresh_token: coinbase_refresh_token
             });
 
-            server_response.redirect(`${config.client_url}/purchase?${COINBASE_ACCESS_TOKEN}`);
+            server_response.redirect(`${config.client_url}/?access_token=${coinbase_access_token}&refresh_token=${coinbase_refresh_token}`);
         }
 
         function handleError(error) {
@@ -52,10 +52,6 @@ var auth_redirect = function auth_redirect(app) {
         }
 
     })
-        
-
-    
-    
 }
 
 module.exports = auth_redirect;
