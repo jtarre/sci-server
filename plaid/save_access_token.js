@@ -26,12 +26,14 @@ var save_access_token = function save_access_token(app) {
                 });
             }
             
-            PLAID_ACCESS_TOKEN = tokenResponse.access_token;
-            PLAID_ITEM_ID = tokenResponse.item_id;
-            console.log('Access Token: ' + PLAID_ACCESS_TOKEN);
-            console.log('Item ID: ' + PLAID_ITEM_ID);
+            var access_token = tokenResponse.access_token;
+            var item_id = tokenResponse.item_id;
+            console.log('Access Token: ' + access_token);
+            console.log('Item ID: ' + item_id);
             response.json({
-                'error': false
+                'error': false,
+                'bank_access_token': access_token,
+                'bank_account_id': item_id
             });
         });
     });

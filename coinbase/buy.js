@@ -9,22 +9,25 @@ var buy = function buy(app) {
             'refreshToken': COINBASE_REFRESH_TOKEN
         });
         
-        client.getAccounts('primary', function(err, account) {
-            account.forEach(function(acct) {
-                console.log('my bal: ' + acct.balance.amount + ' for ' + acct.name);
-            });
-        });
-
-        // client.getAccount('2bbf394c-193b-5b2a-9155-3b4732659ede', function(err, account) {
-        //   account.buy({"amount": "10",
-        //                "currency": "BTC",
-        //                "payment_method": "83562370-3e5c-51db-87da-752af5ab9559"}, function(err, tx) {
-        //     console.log(tx);
-        //   });
+        // client.getAccount('primary', function(err, account) {
+        //     account.buy({
+        //         "amount": loose_change,
+        //         "currency": "USD"
+        //         }, function(err, tx) {
+        //             var status;
+        //             var message;
+        //             if(err) {
+        //                 console.error(err);
+        //                 status = 400;
+        //                 message = err;
+        //             } else {
+        //                 console.log("--- Transaction ---\n", tx);
+        //                 status = 200;
+        //                 message = `Transaction success!\n${tx}`;
+        //             }
+        //             response.json({ 'status': status, 'message': message });
+        //         })
         // });
-
-        response.json({'status': 200, 'message': 'successs!'});
-            
     });
 }
 

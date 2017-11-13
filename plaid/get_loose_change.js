@@ -3,11 +3,14 @@ var calculate_loose_change = require('../helpers/calculate_loose_change');
 
 var get_loose_change = function get_loose_change(app) {
     app.post('/get_loose_change', function(request, response, next) {
+        var bankAccessToken = request.body.bank_access_token;
+        var bankAccountId = request.body.bank_account_id;
+        console.log('--- BANK DATA ---\n', bankAccessToken, bankAccountId)
         var startDate = moment().subtract(30, 'days').format('YYYY-MM-DD');
         var endDate = moment().format('YYYY-MM-DD');
         
         // PLAID_CLIENT and PLAID_ACCESS_TOKEN defined in server/index.js
-        PLAID_CLIENT.getTransactions(PLAID_ACCESS_TOKEN, startDate, endDate, {
+        PLAID_CLIENT.getTransactions(bankAccessToken, startDate, endDate, {
             count: 250,
             offset: 0,
         }, function(error, transactionsResponse) {

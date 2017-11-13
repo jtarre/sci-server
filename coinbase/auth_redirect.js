@@ -19,32 +19,43 @@ var auth_redirect = function auth_redirect(app) {
             redirect_uri: 
                 `${config.server_url}/${process.env.COINBASE_AUTH_REDIRECT}`
         };
+
+        var handleResponse = handleResponse.bind(null, response);
         axios.post('https://api.coinbase.com/oauth/token', body)
+
         .then(handleResponse)
         .catch(handleError);
-        response.redirect(config.client_url);
+        // response.send('heyo!');
+    
+        function handleResponse(server_response, response) {
+            console.log('--- RESPONSE HANDLING ---\n', response, server_response);
+            if(response.data.access_token) 
+                COINBASE_ACCESS_TOKEN = response.data.access_token;
+            else 
+                console.error('unable to retrieve access token...');
+            
+            if(response.data.refresh_token) 
+                COINBASE_REFRESH_TOKEN = response.data.refresh_token;
+            else 
+                console.error('unable to retrieve refresh token...');
+            
+            console.log({
+                access_token: COINBASE_ACCESS_TOKEN, 
+                refresh_token: COINBASE_REFRESH_TOKEN
+            });
+
+            server_response.redirect(`${config.client_url}/purchase?${COINBASE_ACCESS_TOKEN}`);
+        }
+
+        function handleError(error) {
+            console.error('error from coinbase auth...\n', error);
+        }
+
     })
         
-    function handleResponse(response) {
-        if(response.data.access_token) 
-            COINBASE_ACCESS_TOKEN = response.data.access_token;
-        else 
-            console.error('unable to retrieve access token...');
-        
-        if(response.data.refresh_token) 
-            COINBASE_REFRESH_TOKEN = response.data.refresh_token;
-        else 
-            console.error('unable to retrieve refresh token...');
-        
-        console.log({
-            access_token: COINBASE_ACCESS_TOKEN, 
-            refresh_token: COINBASE_REFRESH_TOKEN
-        });
-    }
+
     
-    function handleError(error) {
-        console.error('error from coinbase auth...\n', error);
-    }
+    
 }
 
 module.exports = auth_redirect;

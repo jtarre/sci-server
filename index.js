@@ -1,28 +1,12 @@
-/*
- *
- * Ok, design
- * san serif font
- * mvp
- * no database
- * walk through form
- * like typescript
- * step 1. authorize bank account
- * step 2. authorize coinbase
- * step 3. get value of loose change
- * step 3a. print value of loose change
- * 3a1. congrats, you have some loose change! 
- * 4. make purchase
- * 4a. Buy {loose_change} worth of bitcoin!
- */
 
-/*
- * Possible start up errors:
- * client fails - (move into its own method to unit test it?)
- */
+// Start up errors
+//client fails - (move into its own method to unit test it?)
 
 // TODO: Send client to home page if route not found...
 // TODO: Send client to home page when hitting the / route
 
+// if i want to move over to es6...
+// https://www.codementor.io/iykyvic/writing-your-nodejs-apps-using-es6-6dh0edw2o
 var dotenv = require('dotenv').config({path: './.env'});
 var express = require('express');
 var bodyParser = require('body-parser');
@@ -42,7 +26,6 @@ var PLAID_ENV = process.env.PLAID_ENV;
 
 // We store the access_token in memory - in production, store it in a secure
 // persistent data store
-PLAID_ACCESS_TOKEN = null;
 PLAID_PUBLIC_TOKEN = null;
 PLAID_ITEM_ID = null;
 
@@ -88,7 +71,6 @@ app.get('/', function(request, response, next) {
 });
 
 require('./plaid/save_access_token')(app);
-require('./plaid/get_access_token')(app);
 require('./plaid/get_transactions')(app);
 require('./plaid/get_loose_change')(app);
 
